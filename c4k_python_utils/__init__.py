@@ -1,5 +1,6 @@
 from typing import Any
 import tensorflow as tf
+import numpy as np
 import boto3
 from pymongo.mongo_client import MongoClient
 from abc import ABC, abstractmethod, abstractstaticmethod
