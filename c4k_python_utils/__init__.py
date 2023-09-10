@@ -45,8 +45,8 @@ def get_collection(collection_name, mongo_uri):
     return db.measurements
 
 class SkeletonExtractorInterface(ABC):
-    @abstractmethod()
-    @staticmethod()
+    @staticmethod
+    @abstractmethod
     def create(**kwargs):
         pass
 
