@@ -12,7 +12,7 @@ metadata = dict(
         "scipy",
         "pymongo",
         "boto3",
-        "git+https://github.com/mateuszkojro/computer_vision_utils",
+        "computer_vision_utils @ git+https://github.com/mateuszkojro/computer_vision_utils",
     ],
 )
 
