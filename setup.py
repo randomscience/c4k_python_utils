@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 metadata = dict(
     name="c4k_python_utils",
-    version="0.1.6",
+    version="0.1.7",
     packages=["c4k_python_utils"],
     install_requires=[
         "numpy",
