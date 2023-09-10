@@ -3,8 +3,8 @@ import tensorflow as tf
 import boto3
 from pymongo.mongo_client import MongoClient
 from abc import ABC, abstractmethod, abstractstaticmethod
-import ._tf_visualization
-import ._movenet
+import c4k_python_utils._tf_visualization
+import c4k_python_utils._movenet
 
 KEYPOINT_DICT = {
     'nose': 0,
