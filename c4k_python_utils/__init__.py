@@ -50,11 +50,11 @@ class SkeletonExtractorInterface(ABC):
     def create(**kwargs):
         pass
 
-    @abstractmethod()
+    @abstractmethod
     def prepare_frame(self, frame, **kwargs):
         pass
 
-    @abstractmethod()
+    @abstractmethod
     def __call__(self, frame, **kwargs) -> Any:
         pass
 
