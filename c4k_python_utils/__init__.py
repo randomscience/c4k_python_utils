@@ -73,7 +73,15 @@ class MovenetSkeletonExtractor(SkeletonExtractorInterface):
         return self._movenet.predict(frame)
 
 def overlay_skeleton(frame, keypoints_with_scores):
-    return draw_prediction_on_image(frame, keypoints_with_scores)
+    display_image = tf.expand_dims(frame, axis=0)
+    display_image = tf.cast(
+        tf.image.resize_with_pad(display_image, 1280, 1280), dtype=tf.int32
+    )
+    output_overlay = draw_prediction_on_image(
+        np.squeeze(display_image.numpy(), axis=0), keypoints_with_scores
+    )
+    return output_overlay
+
 
 def make_video_filename_v1(unique_id, exercise_num):
     return f"{unique_id}_exercise_{exercise_num}.mp4"
