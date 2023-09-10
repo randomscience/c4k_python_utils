@@ -3,8 +3,8 @@ import tensorflow as tf
 import boto3
 from pymongo.mongo_client import MongoClient
 from abc import ABC, abstractmethod, abstractstaticmethod
-import c4k_python_utils._tf_visualization
-import c4k_python_utils._movenet
+from c4k_python_utils._tf_visualization import draw_prediction_on_image
+from c4k_python_utils._movenet import Movenet
 
 KEYPOINT_DICT = {
     'nose': 0,
@@ -64,7 +64,7 @@ class MovenetSkeletonExtractor(SkeletonExtractorInterface):
         return MovenetSkeletonExtractor(tf.lite.Interpreter(model_path=model_path))
 
     def __init__(self, interpreter) -> None:
-        self._movenet = _movenet.Movenet(interpreter)
+        self._movenet = Movenet(interpreter)
 
     def prepare_frame(self, frame, **kwargs):
         return tf.expand_dims(frame, axis=0)
@@ -73,7 +73,7 @@ class MovenetSkeletonExtractor(SkeletonExtractorInterface):
         self._movenet.predict(frame)
 
 def overlay_skeleton(frame, keypoints_with_scores):
-    _tf_visualization.draw_prediction_on_image(frame, keypoints_with_scores)
+    return draw_prediction_on_image(frame, keypoints_with_scores)
 
 def make_video_filename_v1(unique_id, exercise_num):
     return f"{unique_id}_exercise_{exercise_num}.mp4"
