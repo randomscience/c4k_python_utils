@@ -70,7 +70,7 @@ class MovenetSkeletonExtractor(SkeletonExtractorInterface):
         return tf.expand_dims(frame, axis=0)
 
     def __call__(self, frame, **kwargs):
-        self._movenet.predict(frame)
+        return self._movenet.predict(frame)
 
 def overlay_skeleton(frame, keypoints_with_scores):
     return draw_prediction_on_image(frame, keypoints_with_scores)
