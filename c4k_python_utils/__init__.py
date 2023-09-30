@@ -40,10 +40,10 @@ def get_bucket(bucket_name, key, secret, endpoint_url='http://s3:9000'):
 
     return s3_target.Bucket(bucket_name)
 
-def get_collection(collection_name, mongo_uri):
+def get_collection(collection_name, mongo_uri, collection_db="c4k_measurements_dev"):
     client = MongoClient(mongo_uri)
-    db = client[collection_name]
-    return db.measurements
+    db = client[collection_db]
+    return db[collection_name]
 
 class SkeletonExtractorInterface(ABC):
     @staticmethod
