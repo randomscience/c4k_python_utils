@@ -6,6 +6,10 @@ from pymongo.mongo_client import MongoClient
 from abc import ABC, abstractmethod, abstractstaticmethod
 from c4k_python_utils._tf_visualization import draw_prediction_on_image
 from c4k_python_utils._movenet import Movenet
+import smtplib
+import ssl
+
+
 
 KEYPOINT_DICT = {
     'nose': 0,
@@ -86,3 +90,19 @@ def overlay_skeleton(frame, keypoints_with_scores):
 
 def make_video_filename_v1(unique_id, exercise_num):
     return f"{unique_id}_exercise_{exercise_num}.mp4"
+
+def send_mail(
+    receiver,
+    subject,
+    message,
+    password,
+    sender_email,
+    smtp_server="smtp.gmail.com",
+    port=465,
+):
+    message = f"Subject: {subject}\n\n{message}"
+
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver, message)
