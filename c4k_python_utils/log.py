@@ -23,6 +23,7 @@ class EmailLogHandler(logging.Handler):
 
     def __init__(
         self,
+        app_name,
         receivers,
         sender_email,
         password,
@@ -31,6 +32,7 @@ class EmailLogHandler(logging.Handler):
         smtp_port=465,
     ) -> None:
         super().__init__()
+        self._app_name = app_name
         self._receivers = receivers
         self._sender_email = sender_email
         self._password = password
@@ -49,7 +51,7 @@ class EmailLogHandler(logging.Handler):
             for receiver in self._receivers:
                 EmailLogHandler._send_mail(
                     receiver,
-                    f"[{record.name}]] {record.levelname}",
+                    f"[{self._app_name}] {record.levelname}",
                     self.format(record),
                     self._password,
                     self._sender_email
