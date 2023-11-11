@@ -90,19 +90,3 @@ def overlay_skeleton(frame, keypoints_with_scores):
 
 def make_video_filename_v1(unique_id, exercise_num):
     return f"{unique_id}_exercise_{exercise_num}.mp4"
-
-def send_mail(
-    receiver,
-    subject,
-    message,
-    password,
-    sender_email,
-    smtp_server="smtp.gmail.com",
-    port=465,
-):
-    message = f"Subject: {subject}\n\n{message}"
-
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-        server.login(sender_email, password)
-        server.sendmail(sender_email, receiver, message)
