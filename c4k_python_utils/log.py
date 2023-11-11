@@ -47,7 +47,7 @@ class EmailLogHandler(logging.Handler):
                 return
 
             for receiver in self._receivers:
-                EmailLogHandler.send_mail(
+                EmailLogHandler._send_mail(
                     receiver,
                     f"[{record.name}]] {record.levelname}",
                     self.format(record),
