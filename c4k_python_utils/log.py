@@ -51,6 +51,8 @@ class EmailLogHandler(logging.Handler):
                     receiver,
                     f"[{record.name}]] {record.levelname}",
                     self.format(record),
+                    self._password,
+                    self._sender_email
                 )
         except RecursionError:  # See issue 36272
             raise
