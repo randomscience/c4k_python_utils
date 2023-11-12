@@ -60,3 +60,48 @@ class EmailLogHandler(logging.Handler):
             raise
         except Exception:
             self.handleError(record)
+
+class DiscordLogHandler(logging.Handler):
+
+    def __init__(self, app_name, channel_id, token, notify_level=logging.ERROR) -> None:
+        import discord
+        super().__init__()
+        self._app_name = app_name
+        self._channel_id = channel_id
+        self._token = token
+        self._notify_level = notify_level
+
+    def _send_message(self, message):
+        import discord
+        intents = discord.Intents.default()
+        intents.message_content = True
+        client = discord.Client(intents=intents)
+        @client.event
+        async def on_ready():  #  Called when internal cache is loaded
+            channel = client.get_channel(self._channel_id) #  Gets channel from internal cache
+            await channel.send(message)
+            # result = await channel.send(file=discord.File(open(".env", "r"))) #  Sends message to channel)
+            # result = await channel.send(embed=discord.Embed()) #  Sends message to channel)
+            await client.close()
+        client.run(self._token)  # Starts up the bot
+    
+    def handleError(self, record: logging.LogRecord) -> None:
+        return super().handleError(record)
+
+    def emit(self, record: logging.LogRecord):
+        try:
+            if record.levelno < self._notify_level:
+                return
+
+            message = f"""
+# {record.levelname} in {self._app_name}
+{record.levelname} occured in `{record.funcName}:{record.module}` with message:
+```
+{self.format(record)}
+```
+"""
+            self._send_message(message)
+        except RecursionError:  # See issue 36272
+            raise
+        except Exception:
+            self.handleError(record)
