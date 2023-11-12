@@ -2,10 +2,11 @@ from setuptools import find_packages, setup
 
 metadata = dict(
     name="c4k_python_utils",
-    version="0.1.19",
+    version="0.1.20",
     packages=["c4k_python_utils"],
     install_requires=[
         "numpy",
+        "discord",
         "opencv-python",
         "matplotlib",
         "tensorflow",
