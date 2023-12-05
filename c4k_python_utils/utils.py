@@ -90,3 +90,5 @@ def overlay_skeleton(frame, keypoints_with_scores):
 
 def make_video_filename_v1(unique_id, exercise_num):
     return f"{unique_id}_exercise_{exercise_num}.mp4"
+
+PoseEstimationModel = MovenetSkeletonExtractor
